@@ -2,7 +2,7 @@
 'use strict';
 const centralTicket=document.currentScript?.dataset.yomimonTicket,centralState=window.__yomimonShipmentRemoteLoader;if(centralTicket&&(!centralState||centralState.ticket!==centralTicket||centralState.cancelled))return;
 if(location.hostname!=='fbw.wekeep.co.kr'){alert('위킵에 로그인한 탭에서 즐겨찾기 「요미몬 출고 집계」를 눌러 주세요.');return;}
-const APP_VERSION='2026-10-15-central-18';
+const APP_VERSION='2026-10-15-central-19';
 /* Noto Sans KR heading subset, distributed under SIL OFL 1.1.
 Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'
 
@@ -507,4 +507,90 @@ const uiClarityStyle=document.createElement('style');uiClarityStyle.textContent=
 const interactionStyle=document.createElement('style');interactionStyle.textContent=".quick button{transition:background-color .16s ease,border-color .16s ease,color .16s ease,box-shadow .16s ease,transform .12s ease}.quick button[aria-pressed=true]{background:var(--ui-accent);border-color:var(--ui-accent);color:#fff;font-weight:700;box-shadow:0 2px 6px #17355924}.quick button[aria-pressed=true]:hover{background:var(--ui-accent);border-color:var(--ui-accent);color:#fff}.quick button:active{transform:translateY(1px) scale(.96)}.quick button.preset-pulse{animation:presetTap .24s ease-out}@keyframes presetTap{0%{transform:scale(1)}45%{transform:translateY(1px) scale(.94);box-shadow:0 0 0 4px var(--ui-soft)}100%{transform:scale(1)}}.product-channel-toggle{font:inherit;font-weight:600;text-align:left;line-height:1.5;color:#173b77;border:0;border-radius:4px;background:transparent;padding:2px 0;text-decoration:underline;text-decoration-color:#93b5e5;text-underline-offset:4px;cursor:pointer}.product-channel-toggle:hover,.product-channel-toggle[aria-expanded=true]{color:#1d4ed8;background:#eff6ff}.date-channel-toggle{font:inherit;border:0;border-radius:5px;background:transparent;color:#1d4ed8;padding:4px 7px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}.date-channel-toggle small{font-size:11px;color:#64748b;margin-left:8px;text-decoration:none}.date-channel-toggle:hover,.date-channel-toggle[aria-expanded=true]{background:#dbeafe;color:#1e40af}.product-channel-row>td,.day-channel-row>td{background:#f0f7ff!important;text-align:left!important;padding:14px 22px!important}.day-channel-box{max-width:520px;animation:drillReveal .16s ease-out}.day-channel-box h4{font-size:14px;color:#1e40af;margin:0 0 9px}.daily-table .channel-table{min-width:0;width:100%;table-layout:fixed;border:1px solid #cbdff8}.daily-table .channel-table th,.daily-table .channel-table td{padding:9px 12px;font-size:14px;background:white;color:#334155}.daily-table .channel-table th{background:#e6f0ff}.daily-table .channel-table th:first-child,.daily-table .channel-table td:first-child{width:65%;text-align:left}.daily-table .channel-table th:last-child,.daily-table .channel-table td:last-child{text-align:right}.daily-table .channel-table tfoot th,.daily-table .channel-table tfoot td{background:#dbeafe;color:#1e40af;font-weight:700}@keyframes drillReveal{from{opacity:.35;transform:translateY(-3px)}to{opacity:1;transform:translateY(0)}}@media(prefers-reduced-motion:reduce){.quick button,.day-channel-box{transition:none;animation:none!important}.quick button.preset-pulse{animation:none}}";root.appendChild(interactionStyle);if(!isDaily){const headerStyle=document.createElement('style');headerStyle.textContent="#shipmentTable thead th{text-align:center;vertical-align:middle;line-height:1.5;padding:12px 10px}#shipmentTable thead th.product-head{text-align:left;padding-left:16px}#shipmentTable thead th small{display:block;font-size:12px;line-height:1.5;margin-top:3px;font-weight:400;color:inherit}#shipmentTable thead th.fulfillment-group{background:#dcfce7;color:#15803d;font-weight:600;border:0;border-bottom:1px solid #e2e8f0;padding:11px 8px}#shipmentTable thead th.fulfillment-sub,#shipmentTable thead th#totalHead{background:#f0fdf4;color:#15803d;font-weight:600;border-top:0;border-bottom:1px solid #e2e8f0;padding:11px 8px;white-space:nowrap}#shipmentTable thead th.fulfillment-start{border-left:1px solid #e2e8f0}#shipmentTable thead th.fulfillment-end{border-right:1px solid #e2e8f0}#shipmentTable thead th.rocket-group{background:#dbeafe;color:#1d4ed8;font-weight:600;padding:11px 8px;border-left:1px solid #e2e8f0;border-right:1px solid #e2e8f0}#shipmentTable thead th.rocket-sum,#shipmentTable thead th.rocket-detail{background:#eff6ff;color:#1d4ed8;padding:11px 8px;text-align:center;white-space:nowrap;border-bottom:1px solid #e2e8f0}#shipmentTable thead th.blue-total{background:#ffedd5;color:#c2410c;text-align:center;padding:12px 8px;font-weight:600;border-left:1px solid #e2e8f0}#shipmentTable tbody td{vertical-align:middle;font-variant-numeric:tabular-nums;text-align:center;padding:16px 14px}#shipmentTable tbody tr[data-row] td:not(:first-child){text-align:center;padding:16px 14px}#shipmentTable tbody td.name{text-align:left;padding-left:16px;line-height:1.5}#shipmentTable tbody td.shipment-total{background:#f0fdf4;color:#15803d}#shipmentTable tbody td.actual-qty,#shipmentTable tbody td.pending-qty{background:#f7fcf8;color:#475569}#shipmentTable tbody td.empty{text-align:center}#shipmentTable tbody td.name .sub{line-height:1.5;margin-top:3px}#shipmentTable tbody td.shipment-total,#shipmentTable tbody td.rocket-sum,#shipmentTable tbody td.blue-total{font-size:17px;font-weight:600}";root.appendChild(headerStyle);}for(const id of ['from','to'])for(const eventName of ['input','change'])$(id).addEventListener(eventName,syncPreset);syncPreset();
 
 }
+})();
+;(function installYomimonLoginGate(){
+'use strict';
+if(location.origin!=='https://fbw.wekeep.co.kr')return;
+const ticket=document.currentScript?.dataset.yomimonTicket,loader=window.__yomimonShipmentRemoteLoader;
+if(ticket&&(!loader||loader.ticket!==ticket||loader.cancelled))return;
+const host=document.getElementById('yomimon-shipment-app');
+if(!host||host.dataset.centralReady!=='1')return;
+const key='__yomimonShipmentLoginGate',previous=window[key];
+let popup=previous?.dispose?.(true)||null,timer=null,request=null,checking=false,deadline=0;
+const state={active:true,phase:'checking',popup:null,dispose};window[key]=state;
+delete host.dataset.loginVerified;
+const previousFocus=document.activeElement;
+const muted=[...new Set([host,document.body].filter(Boolean))].map(element=>({element,inert:element.inert}));
+for(const {element}of muted)element.inert=true;
+const overlay=document.createElement('div');overlay.id='yomimon-login-gate';
+overlay.style.cssText='position:fixed;inset:0;z-index:2147483647;background:#f3f6fb;display:grid;place-items:center;padding:20px;box-sizing:border-box';
+const root=overlay.attachShadow({mode:'open'});
+root.innerHTML='<style>:host{font:16px/1.65 system-ui,"Malgun Gothic",sans-serif;color:#172032}.card{width:min(540px,calc(100vw - 80px));padding:30px;background:white;border:1px solid #dce4ef;border-radius:14px;box-shadow:0 12px 45px #17203212}h2{font-size:24px;margin:0 0 12px}p{margin:10px 0}.muted{font-size:14px;color:#657084}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}button{font:inherit;font-size:14px;padding:10px 15px;border:1px solid #d5dce6;border-radius:8px;background:white;color:#172032;cursor:pointer}.primary{background:#2463cc;color:white;border-color:#2463cc}[hidden]{display:none!important}</style><section class="card" role="dialog" aria-modal="true" aria-labelledby="title"><h2 id="title">요미몬 출고 현황</h2><p id="status" role="status" aria-live="polite">위킵 로그인 상태를 확인하고 있습니다.</p><p class="muted">이 창은 그대로 두세요. 로그인이 필요하면 별도 창에서 직접 로그인하고, 완료되면 이 창에 집계 화면이 자동으로 표시됩니다.</p><div class="actions"><button id="login" class="primary" hidden>위킵 로그인 창 열기</button><button id="retry" hidden>로그인 상태 다시 확인</button><button id="cancel">연결 취소</button></div><p class="muted">비밀번호를 저장하지 않으며, 현재 브라우저의 위킵 로그인과 조회 권한을 사용합니다.</p></section>';
+document.documentElement.appendChild(overlay);
+const status=root.getElementById('status'),login=root.getElementById('login'),retry=root.getElementById('retry');
+function trapFocus(event){
+ if(!state.active||event.key!=='Tab')return;
+ const buttons=[...root.querySelectorAll('button')].filter(button=>!button.hidden&&!button.disabled),current=root.activeElement;
+ if(!buttons.length)return;
+ if(!buttons.includes(current)||(event.shiftKey&&current===buttons[0])||(!event.shiftKey&&current===buttons.at(-1))){event.preventDefault();(event.shiftKey?buttons.at(-1):buttons[0]).focus();}
+}
+document.addEventListener('keydown',trapFocus,true);
+root.getElementById('cancel').focus();
+function dispose(keepPopup=false){
+ if(!state.active)return null;
+ state.active=false;clearTimeout(timer);request?.abort();document.removeEventListener('keydown',trapFocus,true);window.removeEventListener('pagehide',onPageHide);overlay.remove();
+ for(const {element,inert}of muted)element.inert=inert;
+ if(previousFocus?.isConnected&&!previousFocus.inert){try{previousFocus.focus();}catch{}}
+ const child=popup;popup=null;state.popup=null;
+ if(!keepPopup&&child){try{child.close();}catch{}}
+ return keepPopup?child:null;
+}
+function show(text,phase){if(!state.active)return;state.phase=phase;status.textContent=text;login.hidden=false;retry.hidden=false;}
+function later(ms=2500){clearTimeout(timer);if(!state.active)return;if(deadline&&Date.now()>=deadline){show('로그인 대기 시간이 지났습니다. 로그인 창을 다시 열거나 로그인 상태를 다시 확인해 주세요.','timeout');return;}timer=setTimeout(()=>check(false),ms);}
+function openLogin(){
+ if(!state.active)return;
+ deadline=Date.now()+15*60*1000;
+ try{
+  let closed=true;try{closed=!popup||popup.closed;}catch{}
+  if(closed){popup=window.open('https://fbw.wekeep.co.kr/fbw/member/login.do','yomimonLogin_'+(ticket||Date.now().toString(36)),'popup=yes,width=1120,height=820,resizable=yes,scrollbars=yes');if(popup){try{popup.opener=null;}catch{}}}
+  state.popup=popup;
+  if(!popup){show('별도 로그인 창이 차단됐습니다. 아래 로그인 창 열기 버튼을 눌러 주세요. 계속 차단되면 위킵의 팝업을 허용해 주세요.','blocked');return;}
+  try{popup.focus();}catch{}
+  show('별도 위킵 창에서 로그인해 주세요. 로그인 완료를 확인하면 원래 창에 집계 화면을 표시합니다.','waiting');later();
+ }catch{show('로그인 창을 열지 못했습니다. 아래 버튼으로 다시 열어 주세요.','blocked');}
+}
+async function probe(){
+ const controller=new AbortController();request=controller;
+ const timeout=setTimeout(()=>controller.abort(),9000);
+ try{
+  const response=await fetch('/fbw/admin/v2/inventory/search?searchInventoryType=INVENTORY',{method:'POST',credentials:'same-origin',cache:'no-store',redirect:'manual',signal:controller.signal,headers:{'Content-Type':'application/json'},body:JSON.stringify({page:1,pageSize:1})});
+  if(response.type==='opaqueredirect'||response.status===401)return false;
+  if(!response.ok)throw Error('connection');
+  const text=await response.text();
+  if(text.includes('/fbw/j_spring_security_check'))return false;
+  let data;try{data=JSON.parse(text);}catch{throw Error('connection');}
+  if(data?.result===true&&Array.isArray(data?.data?.inventoryList))return true;
+  if(data?.result===false&&/로그인|세션/.test(String(data.message||'')))return false;
+  throw Error('permission');
+ }finally{clearTimeout(timeout);if(request===controller)request=null;}
+}
+async function check(autoOpen=false){
+ if(!state.active||checking)return;checking=true;clearTimeout(timer);
+ try{
+  const authenticated=await probe();if(!state.active)return;
+  if(authenticated){state.phase='ready';host.dataset.loginVerified='1';dispose(false);return;}
+  show('위킵 로그인이 필요합니다. 별도 로그인 창에서 로그인해 주세요.','login-required');
+  if(autoOpen)openLogin();else if(popup)later();
+ }catch{
+  if(!state.active)return;
+  show('위킵 연결을 확인하지 못했습니다. 인터넷 연결과 위킵 조회 권한을 확인한 뒤 다시 확인해 주세요.','error');
+  if(popup)later(5000);
+ }finally{checking=false;}
+}
+login.onclick=openLogin;
+retry.onclick=()=>{deadline=Date.now()+15*60*1000;check(false);};
+root.getElementById('cancel').onclick=()=>{dispose(false);if(document.getElementById('yomimon-shipment-app')===host){host.abortShipmentLookup?.();host.removeRefreshListener?.();host.remove();}};
+function onPageHide(){dispose(false);}
+window.addEventListener('pagehide',onPageHide,{once:true});
+check(true);
 })();
