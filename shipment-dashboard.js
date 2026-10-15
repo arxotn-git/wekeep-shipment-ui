@@ -1,8 +1,8 @@
 (function shipmentDashboard(){
 'use strict';
 const centralTicket=document.currentScript?.dataset.yomimonTicket,centralState=window.__yomimonShipmentRemoteLoader;if(centralTicket&&(!centralState||centralState.ticket!==centralTicket||centralState.cancelled))return;
-if(location.hostname!=='fbw.wekeep.co.kr'){alert("위킵에 로그인 하신 탭에서 즐겨찾기를 다시 눌러주세요\n\n① 위킵에 로그인\n② 즐겨찾기를 다시 클릭");return;}
-const APP_VERSION='2026-10-15-central-20';
+if(location.hostname!=='fbw.wekeep.co.kr'){alert("\n■ 위킵에 로그인 하신 탭에서 즐겨찾기를 다시 눌러주세요.\n\n① 위킵에 로그인\n② 즐겨찾기를 다시 클릭");return;}
+const APP_VERSION='2026-10-15-central-21';
 /* Noto Sans KR heading subset, distributed under SIL OFL 1.1.
 Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'
 
