@@ -2,7 +2,7 @@
 'use strict';
 const centralTicket=document.currentScript?.dataset.yomimonTicket,centralState=window.__yomimonShipmentRemoteLoader;if(centralTicket&&(!centralState||centralState.ticket!==centralTicket||centralState.cancelled))return;
 if(location.hostname!=='fbw.wekeep.co.kr'){alert("\n■ 위킵에 로그인 하신 탭에서 즐겨찾기를 다시 눌러주세요.\n\n① 위킵에 로그인\n② 즐겨찾기를 다시 클릭");return;}
-const APP_VERSION='2026-10-20-central-28';const DAILY_TAB_ENABLED=false;
+const APP_VERSION='2026-10-20-central-29';const DAILY_TAB_ENABLED=false;
 /* Noto Sans KR heading subset, distributed under SIL OFL 1.1.
 Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'
 
@@ -275,7 +275,7 @@ $('xlsx').onclick=()=>downloadWorkbook('summary');$('detailXlsx').onclick=()=>do
 
 host.refreshShipmentLookup=()=>{const from=$('from').value,to=$('to').value;if(!/^\d{4}-\d{2}-\d{2}$/.test(from)||!/^\d{4}-\d{2}-\d{2}$/.test(to)||!Number.isFinite(Date.parse(from))||!Number.isFinite(Date.parse(to))){$('status').textContent='시작일과 종료일을 선택해 주세요.';return;}if(!$('form').reportValidity())return;return $('form').onsubmit({preventDefault(){}});};host.getFilters=()=>({from:$("from").value,to:$("to").value,keyword:$("product").value});host.isLookupActive=()=>!!controller;
 // Presentation-only sort state. Source rows, audits and quantity ranking are not reordered.
-let tableSort={key:isDaily?'qty':'name',dir:isDaily?'desc':'asc'};
+let tableSort={key:'qty',dir:'desc'};
 const tableCollator=new Intl.Collator('ko',{numeric:true,sensitivity:'base'});
 function sortForTable(list,valueFn,nameFn,skuFn){
  const {key,dir}=tableSort,factor=dir==='asc'?1:-1,positions=new Map(list.map((row,index)=>[row,index]));
@@ -300,11 +300,12 @@ function bindTableSort(render){
   const next=active?(tableSort.dir==='asc'?'내림차순':'오름차순'):(key==='name'||key==='rank'?'오름차순':'내림차순');
   button.setAttribute('aria-label',button.dataset.sortLabel+' '+next+' 정렬');button.title=button.dataset.sortLabel+' '+next+' 정렬';
   button.onclick=()=>{if(controller)return;const sameKey=[...root.querySelectorAll('[data-table-sort="'+key+'"]')],focusIndex=sameKey.indexOf(button);tableSort=active?{key,dir:tableSort.dir==='asc'?'desc':'asc'}:{key,dir:key==='name'||key==='rank'?'asc':'desc'};if(ranDataAt)render();bindTableSort(render);root.querySelectorAll('[data-table-sort="'+key+'"]')[Math.max(0,focusIndex)]?.focus({preventScroll:true});};
+  const th=button.closest('th');if(th){th.classList.add('sort-hit-cell');th.title=button.title;th.onclick=event=>{if(!event.composedPath().includes(button))button.click();};}
  }
 }
 const tableSortStyle=document.createElement('style');
 tableSortStyle.textContent='.column-sort{font:inherit;font-weight:inherit;color:inherit;padding:3px 1px;border:0;border-radius:4px;background:transparent;display:inline-flex;align-items:center;justify-content:center;gap:4px;flex-wrap:wrap;line-height:inherit;cursor:pointer;max-width:100%;white-space:normal}.column-sort .sort-label{white-space:nowrap}.column-sort .sort-arrow{display:inline-flex;align-items:center;justify-content:center;width:12px;height:14px;color:#94a3b8;flex:0 0 12px}.column-sort .sort-arrow svg{display:block;width:12px;height:14px}.column-sort[aria-pressed=true] .sort-arrow{color:#f97316}.column-sort:hover .sort-arrow{color:#64748b}.column-sort[aria-pressed=true]:hover .sort-arrow{color:#ea580c}.column-sort small{display:block;flex-basis:100%;margin:0!important}.column-sort:hover{background:var(--ui-soft,#eff6ff)}.column-sort:focus-visible{outline:2px solid var(--ui-accent,#2463cc);outline-offset:3px}.daily-table th:nth-child(2) .column-sort,#shipmentTable .product-head .column-sort{justify-content:flex-start}.daily-table tbody tr[data-md-index],#shipmentTable tbody tr[data-row]{cursor:default!important}#details{display:none!important}';
-root.appendChild(tableSortStyle);
+tableSortStyle.textContent+='th.sort-hit-cell{cursor:pointer}th.sort-hit-cell:hover{box-shadow:inset 0 0 0 2px var(--ui-border,#93c5fd)}th.sort-hit-cell:hover .column-sort{background:transparent}';root.appendChild(tableSortStyle);
 host.getTableSortState=()=>({...tableSort});
 
 // MD UX: display controls only; immutable registration accounting remains in each engine.
